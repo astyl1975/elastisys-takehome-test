@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nodeapp
+spec:
+### Deployment Strategy for Rolling Updates
+  strategy:
+   type: RollingUpdate
+   rollingUpdate:
+     maxSurge: 1
+############################################
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nodeapp
+  template:
+    metadata:
+      labels:
+        app: nodeapp
+    spec:
+      nodeSelector:
+        "kubernetes.io/os": linux
+      containers:
+      - name: nodeapp
+        image: astylacr.azurecr.io/node-docker-app:v2
+        ports:
+        - containerPort: 3000
+        resources:
+          requests:
+            cpu: 1m
+            memory: 50Mi
+          limits:
+            cpu: 75m
+            memory: 128Mi
+        #startupProbe:
+        #  httpGet:
+        #    path: /
+        #    port: 8088
+        #  failureThreshold: 5
+        #  initialDelaySeconds: 20
+        #  periodSeconds: 10
+        #readinessProbe:
+        #  httpGet:
+        #    path: /
+        #    port: 8088
+        #  failureThreshold: 3
+        #  initialDelaySeconds: 3
+        #  periodSeconds: 5
+        #livenessProbe:
+        #  httpGet:
+        #    path: /
+        #    port: 8088
+        #  failureThreshold: 5
+        #  initialDelaySeconds: 3
+        #  periodSeconds: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nodelb
+spec:
+  ports:
+  - port: 80
+    targetPort: 3000
+    #nodePort: 8088
+  selector:
+    app: nodeapp
+  type: LoadBalancer # ClusterIP #
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+spec:
+  ingressClassName: webapprouting.kubernetes.azure.com
+  rules:
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: nodelb
+            port:
+              number: 80
+      - path: /getdata
+        pathType: Prefix
+        backend:
+          service:
+            name: getdatalb
+            port:
+              number: 80
+---
