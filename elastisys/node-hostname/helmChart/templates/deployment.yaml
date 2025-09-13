@@ -22,7 +22,7 @@ spec:
         "kubernetes.io/os": linux
       containers:
       - name: nodeapp
-        image: astylacr.azurecr.io/node-docker-app:v5
+        image: astylacr.azurecr.io/nodeapp:v1
         ports:
         - containerPort: 3000
         resources:
@@ -55,3 +55,4 @@ spec:
         #  periodSeconds: 3
 
 ---
+
