@@ -1,3 +1,9 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myingress
+  annotations:
+    cert-manager.io/issuer: "letsencrypt-prod"
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   tls:
@@ -58,4 +64,5 @@ spec:
           ingress:
             ingressClassName: webapprouting.kubernetes.azure.com
 ---
+
 
