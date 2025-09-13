@@ -1,10 +1,11 @@
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: myingress
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
+  tls:
+  - hosts:
+    - aksnginx.magpie.gr
+    secretName: quickstart-example-tls
   rules:
+  #- host: aksnginx.magpie.gr
   - http:
       paths:
       - path: /
@@ -12,13 +13,6 @@ spec:
         backend:
           service:
             name: nodelb
-            port:
-              number: 80
-      - path: /getdata
-        pathType: Prefix
-        backend:
-          service:
-            name: getdatalb
             port:
               number: 80
 ---
