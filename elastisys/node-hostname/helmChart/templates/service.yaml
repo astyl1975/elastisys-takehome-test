@@ -9,5 +9,6 @@ spec:
     #nodePort: 8088
   selector:
     app: nodeapp
-  type: LoadBalancer # ClusterIP #
+  type:  ClusterIP # LoadBalancer #
+
 ---
