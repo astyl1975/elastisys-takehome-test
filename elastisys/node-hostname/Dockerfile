@@ -6,7 +6,7 @@ WORKDIR /app
 COPY package*.json ./
 # Install application dependencies
 RUN npm install
-RUN npm install ejs
+#RUN npm install ejs
 # Copy the rest of the application source code
 COPY . .
 # Expose port 3000 to the outside world
@@ -20,4 +20,5 @@ EXPOSE 3000
 # Command to run the application
 # CMD ["node", "bin/www.js"]
 CMD ["npm", "start"]
+
 
