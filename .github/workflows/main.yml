@@ -46,6 +46,7 @@ jobs:
 
 
   deploy:
+    needs: build
     name: deploynode
     permissions:
       actions: read
