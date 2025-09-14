@@ -11,7 +11,7 @@ spec:
     - aksnginx.magpie.gr
     secretName: quickstart-example-tls
   rules:
-  #- host: aksnginx.magpie.gr
+  - host: aksnginx.magpie.gr
   - http:
       paths:
       - path: /
@@ -64,5 +64,6 @@ spec:
           ingress:
             ingressClassName: webapprouting.kubernetes.azure.com
 ---
+
 
 
