@@ -38,7 +38,7 @@ jobs:
 
     - uses: actions/checkout@v4
     - name: tag the Docker image hello
-      run: docker image tag docker.io/library/nodeapp:v1 astylacr.azurecr.io/nodeapp:v2
+      run: docker image tag docker.io/library/nodeapp:v2 astylacr.azurecr.io/nodeapp:v2
       
     - uses: actions/checkout@v4
     - name: push the Docker image hello
