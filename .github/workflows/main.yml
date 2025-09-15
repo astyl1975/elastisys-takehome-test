@@ -34,15 +34,15 @@ jobs:
 
     - uses: actions/checkout@v4
     - name: Build the Docker image hello
-      run: docker build ./elastisys/node-hostname --file ./elastisys/node-hostname/Dockerfile --tag nodeapp:v1
+      run: docker build ./elastisys/node-hostname --file ./elastisys/node-hostname/Dockerfile --tag nodeapp:v2
 
     - uses: actions/checkout@v4
     - name: tag the Docker image hello
-      run: docker image tag docker.io/library/nodeapp:v1 astylacr.azurecr.io/nodeapp:v1
+      run: docker image tag docker.io/library/nodeapp:v1 astylacr.azurecr.io/nodeapp:v2
       
     - uses: actions/checkout@v4
     - name: push the Docker image hello
-      run: docker push astylacr.azurecr.io/nodeapp:v1
+      run: docker push astylacr.azurecr.io/nodeapp:v2
 
 
   deploy:
@@ -100,4 +100,4 @@ jobs:
           action: deploy
           manifests: ${{ steps.bake.outputs.manifestsBundle }}
           images: |
-            ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:v1 #${{ github.sha }}            
+            ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:v2 #${{ github.sha }}            
